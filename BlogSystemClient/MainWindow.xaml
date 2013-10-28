@@ -1,0 +1,49 @@
+﻿<Window xmlns:Views="clr-namespace:BlogSystemClient.Views"  x:Class="BlogSystemClient.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ViewModels="clr-namespace:BlogSystemClient.ViewModels"
+        xmlns:converters="clr-namespace:BlogSystemClient.Helpers"
+        Title="MainWindow" WindowState = "Maximized">
+    <Window.DataContext>
+        <ViewModels:MasterViewModel />
+    </Window.DataContext>
+    <Window.Resources>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Width" Value="85"></Setter>
+            <Setter Property="Height" Value="30"></Setter>
+        </Style>
+        <DataTemplate            
+            DataType="{x:Type ViewModels:LoginRegisterViewModel}">
+            <Views:LoginRegisterView />
+        </DataTemplate>
+        <DataTemplate            
+            DataType="{x:Type ViewModels:CreateArticleViewModel}">
+            <Views:CreateArticleView />
+        </DataTemplate>
+        <DataTemplate            
+            DataType="{x:Type ViewModels:CreateCommentViewModel}">
+            <Views:CreateCommentView />
+        </DataTemplate>
+        <DataTemplate            
+            DataType="{x:Type ViewModels:SingleArticleViewModel}">
+            <Views:SingleArticleView />
+        </DataTemplate>
+        <DataTemplate            
+            DataType="{x:Type ViewModels:CreateSubcommentViewModel}">
+            <Views:CreateSubcommentView />
+        </DataTemplate>
+        <DataTemplate
+            DataType="{x:Type ViewModels:ArticlesViewModel}">
+            <Views:ArticlesView/>
+        </DataTemplate>
+        <DataTemplate
+            DataType="{x:Type ViewModels:EditArticleViewModel}">
+            <Views:EditArticleView/>
+        </DataTemplate>
+        <converters:BoolToVisibilityConverter x:Key="boolToVisibilityConverter"/>
+    </Window.Resources>
+    <StackPanel Width="500">
+        <ContentControl Content="{Binding CurrentViewModel}" />
+        <Button Content="Logout" Visibility="{Binding IsLogoutVisible,Converter={StaticResource boolToVisibilityConverter}}" Command="{Binding Logout}"/>
+    </StackPanel>
+</Window>

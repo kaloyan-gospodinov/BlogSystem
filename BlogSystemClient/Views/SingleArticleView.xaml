@@ -1,0 +1,99 @@
+﻿<UserControl x:Class="BlogSystemClient.Views.SingleArticleView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="320">
+    <StackPanel>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Button  
+                Width="80"
+                Grid.Row="0" 
+                Grid.Column="0" 
+                Command="{Binding BackToArticles}">Back</Button>
+            <TextBlock Grid.Row="1"
+                       Grid.Column="0"
+                       FontSize="14"
+                       FontWeight="Bold"
+                       Text="{Binding Article.Title}" />
+            <StackPanel Grid.Row="2"
+                        Grid.Column="0"
+                        Orientation="Horizontal">
+                <TextBlock FontStyle="Italic">Written by:</TextBlock>
+                <TextBlock FontWeight="Bold"
+                           FontStyle="Italic"
+                           Text="{Binding Article.Author}" />
+            </StackPanel>
+            <StackPanel Grid.Row="1"
+                        Grid.Column="1"
+                        Orientation="Horizontal">
+                <TextBlock VerticalAlignment="Center"
+                           Margin="0 0 20 0" 
+                           Width="45">For: </TextBlock>
+                <TextBlock FontWeight="Bold"
+                           FontStyle="Italic"
+                           VerticalAlignment="Center"
+                           Margin="0 0 10 0"
+                           Text="{Binding Article.VotesUp}"/>
+                <Button Width="85" Command="{Binding VotePositiveCommand}">Vote Positive</Button>
+            </StackPanel>
+            <StackPanel Grid.Row="2"
+                        Grid.Column="1"
+                        Orientation="Horizontal">
+                <TextBlock Width="45"
+                           VerticalAlignment="Center"
+                           Margin="0 0 20 0">Against: </TextBlock>
+                <TextBlock FontWeight="Bold"
+                           FontStyle="Italic"
+                           VerticalAlignment="Center"
+                           Margin="0 0 10 0"
+                           Text="{Binding Article.VotesDown}"/>
+                <Button Width="85" Command="{Binding VoteNegativeCommand}">Vote Negative</Button>
+            </StackPanel>
+        </Grid>
+        <Image Width="100" Height="100" Source="{Binding Article.ImageSource}"/>
+        <TextBlock Text="{Binding Article.Content}"/>
+        <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4">
+            <TextBlock>Comments:</TextBlock>
+            <ListBox ItemsSource="{Binding Article.Comments}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Content}" />
+                            <TextBlock Text="   by   " Foreground="#b8b8b8"></TextBlock>
+                            <TextBlock Text="{Binding Author}" Foreground="#b8b8b8"/>
+                            <StackPanel>
+                                <TextBlock Text=" &#x0a; Subcomments"/>
+                                <ListBox ItemsSource="{Binding SubComments}">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{Binding Content}" />
+                                                <TextBlock Text="   by   " Foreground="#b8b8b8"></TextBlock>
+                                                <TextBlock Text="{Binding Author}" Foreground="#b8b8b8"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </StackPanel>
+                            <Button Command="{Binding AddSubComment, Path=DataContext.SingleArticleViewModel.AddSubComment,
+                            RelativeSource={RelativeSource AncestorType={x:Type Window}}}" CommandParameter="{Binding}">Add Sub Comment</Button>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+        <Button Command="{Binding AddComment}">Add Comment</Button>
+        <Button  Command="{Binding EditArticle}">Edit</Button>
+    </StackPanel>
+</UserControl>

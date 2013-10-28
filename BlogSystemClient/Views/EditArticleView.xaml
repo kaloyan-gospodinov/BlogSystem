@@ -1,0 +1,41 @@
+﻿<UserControl x:Class="BlogSystemClient.Views.EditArticleView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Label Grid.Row="0" Grid.Column="0" 
+               Content="Title" Target="Title"></Label>
+        <TextBox Grid.Row="0" Grid.Column="1" 
+                 Name="Title"
+                 Text="{Binding Article.Title}"></TextBox>
+
+        <Label Grid.Row="1" Grid.Column="0" 
+               Content="Content" Target="Content"></Label>
+        <TextBox Grid.Row="1" Grid.Column="1" 
+                 Name="Content"
+                 Text="{Binding Article.Content}"></TextBox>
+
+        <Label Grid.Row="2" Grid.Column="0" 
+               Content="Image" Target="Image"></Label>
+        <Button Grid.Row="2" Grid.Column="1"
+                 Name="Image"
+                 Command="{Binding GetImage}">Pick Another Image</Button>
+
+        <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" 
+                Command="{Binding EditArticle}">
+            Edit Article</Button>
+    </Grid>
+</UserControl>
